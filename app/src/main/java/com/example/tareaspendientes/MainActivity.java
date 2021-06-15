@@ -16,12 +16,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private TextInputEditText user, contrasena;
     private Button acceso, fuera;
+    private ArrayList<Usuario> users = new ArrayList<Usuario>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +114,10 @@ public class MainActivity extends AppCompatActivity {
             String linea;
             do{
                 linea = lu.readLine();
-                if(linea != null)
-                    Log.d("TAG_", linea);
+                if(linea != null){
+                    users.add(user, contrasena);
+                }
+
             }while (linea != null);
             lu.close();
             readUser.close();
