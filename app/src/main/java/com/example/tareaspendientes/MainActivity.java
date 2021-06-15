@@ -3,17 +3,24 @@ package com.example.tareaspendientes;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
-    private TextInputEditText correo, contrasena;
+    private TextInputEditText user, contrasena;
     private Button acceso, fuera;
 
     @Override
@@ -26,33 +33,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inits(){
-        correo = findViewById(R.id.tilUser);
+        user = findViewById(R.id.tilUser);
         contrasena = findViewById(R.id.tilPassword);
         acceso = findViewById(R.id.btnIniciar);
         fuera = findViewById(R.id.btnSalir);
     }
 
     //Metodo para manejar el correo de usuarios.
-    private boolean aceptarCorreo(TextInputEditText correo){
-        if(!correo.getText().toString().isEmpty()){
-            String strCorreo = correo.getText().toString();
-            //Usar el método validarCorreo2(strCorreo) para la expresión regular.
-            if(validarCorreo(strCorreo)){
-                return true;
-            } else {
-                correo.setError("No es un Correo!");
-                return false;
-            }
+    private boolean aceptarUsuario(TextInputEditText user){
+        if(!user.getText().toString().isEmpty()){
+            return true;
         } else {
-            correo.setError("Correo vacío");
+            user.setError("Correo o usuario no ingresada o vacía");
             return false;
         }
-    }
-
-    public boolean validarCorreo(String mail){
-        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher matcher = pattern.matcher(mail);
-        return matcher.find();
     }
 
     private boolean aceptarContrasena(TextInputEditText contrasena){
@@ -83,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
     private void botonsEvents(View v){
         if(v.getId() == R.id.btnIniciar){
             //Para hacer que el boton presionado acceda hacia otra clase.
-            aceptarCorreo(correo);
+            aceptarUsuario(user);
             aceptarContrasena(contrasena);
 
-            if(aceptarCorreo(correo) && aceptarContrasena(contrasena)){
+            if(aceptarUsuario(user) && aceptarContrasena(contrasena)){
                 limpiarCampos();
                 Intent i = new Intent(this, TareaActivity.class);
                 startActivity(i);
@@ -97,8 +91,41 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void crearUsers(){
+        try {
+            OutputStreamWriter u = new OutputStreamWriter(openFileOutput("usersLog.txt", Activity.MODE_APPEND));
+            u.write("Usuario, Contraseña\n");
+            u.write("Luchito, cloudwolf\n");
+            u.write("The venom, admin\n");
+            u.close();
+            Toast.makeText(MainActivity.this, "Guardado el archivo txt", Toast.LENGTH_SHORT).show();
+        }catch(Exception ex){
+            Log.e("TAG_", ex.toString());
+        }
+    }
+
+    private void leerUsers(){
+        try{
+            InputStreamReader readUser = new InputStreamReader(openFileInput("userLog.txt"));
+            BufferedReader lu = new BufferedReader(readUser);
+
+            String linea;
+            do{
+                linea = lu.readLine();
+                if(linea != null)
+                    Log.d("TAG_", linea);
+            }while (linea != null);
+            lu.close();
+            readUser.close();
+        }catch(Exception ex){
+            Log.e("TAG_", ex.toString());
+        }
+    }
+
+
+
     private void limpiarCampos(){
-        correo.setText("");
+        user.setText("");
         contrasena.setText("");
     }
 }

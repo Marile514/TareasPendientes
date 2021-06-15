@@ -3,16 +3,28 @@ package com.example.tareaspendientes;
 import java.util.Date;
 
 public class Tareas {
+    private String user; //Usuario
     private String titulo;
     private String fecha_inicio;
     private String fecha_fin;
     private String observacion;
+    private String estado;
 
-    public Tareas(String titulo, String fecha_inicio, String fecha_fin, String observacion) {
+    public Tareas(String user, String titulo, String fecha_inicio, String fecha_fin, String observacion, String estado) {
+        this.user = user;
         this.titulo = titulo;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.observacion = observacion;
+        this.estado = estado;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getTitulo() {
@@ -47,12 +59,11 @@ public class Tareas {
         this.observacion = observacion;
     }
 
-    public String toString(){
-        return "Tareas{" +
-                "Titulo=" + titulo + "\n" +
-                "Fecha inicio=" + fecha_inicio + "\n" +
-                "Fecha fin=" + fecha_fin + "\n" +
-                "Observacion=" + observacion + "\n" +
-                '}';
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
