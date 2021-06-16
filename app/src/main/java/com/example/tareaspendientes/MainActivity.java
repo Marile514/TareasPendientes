@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             OutputStreamWriter u = new OutputStreamWriter(openFileOutput("usersLog.txt", Activity.MODE_PRIVATE));
             u.write("Luchito, cloudwolf\n");
-            u.write("The venom, admin");
+            u.write("Vixcho, admin");
             u.close();
             Toast.makeText(MainActivity.this, "Guardado el archivo txt", Toast.LENGTH_SHORT).show();
         }catch(Exception ex){
