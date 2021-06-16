@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         inits();
         btnActions();
+        leerUsers();
     }
 
     private void inits(){
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         contrasena = findViewById(R.id.tilPassword);
         acceso = findViewById(R.id.btnIniciar);
         fuera = findViewById(R.id.btnSalir);
+        crearUsers();
     }
 
     //Metodo para manejar el correo de usuarios.
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         if(!user.getText().toString().isEmpty()){
             return true;
         } else {
-            user.setError("Correo o usuario no ingresada o vacía");
+            user.setError("Usuario no ingresada o vacía");
             return false;
         }
     }
@@ -81,8 +83,16 @@ public class MainActivity extends AppCompatActivity {
             //Para hacer que el boton presionado acceda hacia otra clase.
             aceptarUsuario(user);
             aceptarContrasena(contrasena);
-
+            String userString = user.getText().toString();
+            String passwordString = contrasena.getText().toString();
             if(aceptarUsuario(user) && aceptarContrasena(contrasena)){
+                for(Usuario u: users){
+                    if(u.getUsuario().equals(userString) && u.getPassword().equals(passwordString)){
+                        Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 limpiarCampos();
                 Intent i = new Intent(this, TareaActivity.class);
                 startActivity(i);
@@ -95,10 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void crearUsers(){
         try {
-            OutputStreamWriter u = new OutputStreamWriter(openFileOutput("usersLog.txt", Activity.MODE_APPEND));
-            u.write("Usuario, Contraseña\n");
+            OutputStreamWriter u = new OutputStreamWriter(openFileOutput("usersLog.txt", Activity.MODE_PRIVATE));
             u.write("Luchito, cloudwolf\n");
-            u.write("The venom, admin\n");
+            u.write("The venom, admin");
             u.close();
             Toast.makeText(MainActivity.this, "Guardado el archivo txt", Toast.LENGTH_SHORT).show();
         }catch(Exception ex){
@@ -108,19 +117,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void leerUsers(){
         try{
-            InputStreamReader readUser = new InputStreamReader(openFileInput("userLog.txt"));
+            InputStreamReader readUser = new InputStreamReader(openFileInput("usersLog.txt"));
             BufferedReader lu = new BufferedReader(readUser);
 
             String linea;
             do{
                 linea = lu.readLine();
                 if(linea != null){
-                    users.add(user, contrasena);
+                    Log.d("TAG_","Leer usuarios: "+linea);
+                    String[] loginRegistrado = linea.split(", ");
+                    users.add(new Usuario(loginRegistrado[0], loginRegistrado[1]));
                 }
 
             }while (linea != null);
             lu.close();
             readUser.close();
+            Log.d("USR_", users.toString());
         }catch(Exception ex){
             Log.e("TAG_", ex.toString());
         }
