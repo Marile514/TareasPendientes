@@ -19,6 +19,12 @@ public class Tareas {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return user + ", " + titulo + ", " + fecha_inicio + ", " + fecha_fin + ", " + observacion +
+                ", " + estado;
+    }
+
     public String getUser() {
         return user;
     }

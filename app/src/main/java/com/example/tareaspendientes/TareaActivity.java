@@ -21,7 +21,7 @@ public class TareaActivity extends AppCompatActivity {
     private EditText titulo, observacion, fecha_inicio, fecha_fin;
     private RadioButton rbtnPendiente, rbtnRealize;
     private Button btnActual, btnDelete;
-    private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    private ArrayList<Tareas> tarea = new ArrayList<Tareas>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class TareaActivity extends AppCompatActivity {
     //Métodos para validar las fechas de inicio y fin.
     public boolean validarFechaInicio(EditText fecha_inicio){
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy a hh: mm");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             formatoFecha.setLenient(false);
             formatoFecha.parse(String.valueOf(fecha_inicio));
         } catch (ParseException e) {
@@ -57,7 +57,7 @@ public class TareaActivity extends AppCompatActivity {
 
     public boolean validarFechaFin(EditText fecha_fin){
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy a hh: mm");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             formatoFecha.setLenient(false);
             formatoFecha.parse(String.valueOf(fecha_fin));
         } catch (ParseException e) {
@@ -104,7 +104,7 @@ public class TareaActivity extends AppCompatActivity {
             if(validarTitulo(titulo) && validarFechaInicio(fecha_inicio) && validarFechaFin(fecha_fin) && validarObservacion(observacion) ){
                 Toast.makeText(TareaActivity.this, "Datos a ser transferidos", Toast.LENGTH_SHORT).show();
                 try{
-                    OutputStreamWriter c = new OutputStreamWriter(openFileOutput("tareasUsuario.txt", Activity.MODE_APPEND));
+                    OutputStreamWriter c = new OutputStreamWriter(openFileOutput("tareasUsuario.txt", Activity.MODE_PRIVATE));
                     c.write("Titulo: " +titulo.getText());
                     c.write("\n Fecha inicio: " +fecha_inicio.getText());
                     c.write("\n Fecha fin: " +fecha_fin.getText());
@@ -114,6 +114,7 @@ public class TareaActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Log.e("TAG_", e.toString());
                 }
+                tarea.add(new Tareas())
                 //Realizar instancia hacia la ListaTareaActivity.
                 Intent work = new Intent(TareaActivity.this, ListaTareaActivity.class);
                 startActivity(work);
