@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText user, contrasena;
     private Button acceso, fuera;
     private ArrayList<Usuario> users = new ArrayList<Usuario>();
+    private String nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void botonsEvents(View v){
+        nombreUsuario = user.getText().toString();
         if(v.getId() == R.id.btnIniciar){
             //Para hacer que el boton presionado acceda hacia otra clase.
             aceptarUsuario(user);
@@ -94,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 limpiarCampos();
-                Intent i = new Intent(this, TareaActivity.class);
+                Intent i = new Intent(this, ListaTareaActivity.class);
+                i.putExtra("keyUser", nombreUsuario);
                 startActivity(i);
             }
         }

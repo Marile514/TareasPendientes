@@ -22,6 +22,7 @@ public class TareaActivity extends AppCompatActivity {
     private RadioButton rbtnPendiente, rbtnRealize;
     private Button btnActual, btnDelete;
     private ArrayList<Tareas> tarea = new ArrayList<Tareas>();
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,7 @@ public class TareaActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Log.e("TAG_", e.toString());
                 }
-                tarea.add(new Tareas())
+                tarea.add(new Tareas(Tareas.user))
                 //Realizar instancia hacia la ListaTareaActivity.
                 Intent work = new Intent(TareaActivity.this, ListaTareaActivity.class);
                 startActivity(work);
