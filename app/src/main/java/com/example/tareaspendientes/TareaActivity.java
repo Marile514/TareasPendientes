@@ -42,6 +42,9 @@ public class TareaActivity extends AppCompatActivity {
         rbtnRealize = findViewById(R.id.rbtn2);
         btnActual = findViewById(R.id.btnActualizar);
         btnDelete = findViewById(R.id.btnEliminar);
+
+        rbtnPendiente.setOnClickListener((View.OnClickListener) this);
+        rbtnRealize.setOnClickListener((View.OnClickListener) this);
     }
 
     //Métodos para validar las fechas de inicio y fin.
@@ -115,7 +118,7 @@ public class TareaActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Log.e("TAG_", e.toString());
                 }
-                tarea.add(new Tareas(Tareas.user))
+
                 //Realizar instancia hacia la ListaTareaActivity.
                 Intent work = new Intent(TareaActivity.this, ListaTareaActivity.class);
                 startActivity(work);
@@ -125,5 +128,9 @@ public class TareaActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private void agregarDatosList(){
+
     }
 }

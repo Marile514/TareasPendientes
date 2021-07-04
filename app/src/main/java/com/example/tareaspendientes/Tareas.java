@@ -10,7 +10,7 @@ public class Tareas {
     private String observacion;
     private String estado;
 
-    public Tareas(String user, String titulo, String fecha_inicio, String fecha_fin, String observacion, String estado) {
+    public Tareas(String user, String titulo, String fecha_inicio, String fecha_fin, String observacion) {
         this.user = user;
         this.titulo = titulo;
         this.fecha_inicio = fecha_inicio;
