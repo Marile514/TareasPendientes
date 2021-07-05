@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 limpiarCampos();
-                Intent i = new Intent(this, ListaTareaActivity.class);
+                Intent i = new Intent(MainActivity.this, ListaTareaActivity.class);
                 i.putExtra("keyUser", nombreUsuario);
                 startActivity(i);
             }
