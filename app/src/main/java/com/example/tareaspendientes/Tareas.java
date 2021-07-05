@@ -1,8 +1,9 @@
 package com.example.tareaspendientes;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Tareas {
+public class Tareas implements Serializable {
     private String user; //Usuario
     private String titulo;
     private String fecha_inicio;

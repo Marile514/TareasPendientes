@@ -1,6 +1,8 @@
 package com.example.tareaspendientes;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private String usuario, password;
 
     public Usuario(String usuario, String password) {

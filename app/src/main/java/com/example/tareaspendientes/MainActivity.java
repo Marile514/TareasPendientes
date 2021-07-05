@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText user, contrasena;
     private Button acceso, fuera;
     private ArrayList<Usuario> users = new ArrayList<Usuario>();
-    private String nombreUsuario;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         acceso = findViewById(R.id.btnIniciar);
         fuera = findViewById(R.id.btnSalir);
         crearUsers();
+        crearTareastxt();
     }
 
     //Metodo para manejar el correo de usuarios.
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void botonsEvents(View v){
-        nombreUsuario = user.getText().toString();
         if(v.getId() == R.id.btnIniciar){
             //Para hacer que el boton presionado acceda hacia otra clase.
             aceptarUsuario(user);
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             if(aceptarUsuario(user) && aceptarContrasena(contrasena)){
                 for(Usuario u: users){
                     if(u.getUsuario().equals(userString) && u.getPassword().equals(passwordString)){
+                        usuario = u;
                         Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 limpiarCampos();
                 Intent i = new Intent(MainActivity.this, ListaTareaActivity.class);
-                i.putExtra("keyUser", nombreUsuario);
+                i.putExtra("keyUser", usuario);
                 startActivity(i);
             }
         }
@@ -141,7 +142,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    private void crearTareastxt(){
+        try{
+            OutputStreamWriter c = new OutputStreamWriter(openFileOutput("tareasUsuario.txt", Activity.MODE_PRIVATE));
+            c.write("Luchito, tarea1, 04-07-2021, 10-07-2021, Observacion1, lista\n");
+            c.write("Luchito, tarea2, 04-07-2021, 10-07-2021, Observacion2, pendiente\n");
+            c.write("Vixcho, tarea3, 04-07-2021, 10-07-2021, Observacion3, lista\n");
+            c.write("Vixcho, tarea4, 04-07-2021, 10-07-2021, Observacion4, pendiente");
+        }catch (Exception e){
+            Log.e("TAG_", e.toString());
+        }
+    }
 
     private void limpiarCampos(){
         user.setText("");

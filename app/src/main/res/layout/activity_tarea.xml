@@ -70,46 +70,49 @@
         android:id="@+id/btnActualizar"
         android:layout_width="182dp"
         android:layout_height="45dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="36dp"
         android:text="Actualizar"
         app:backgroundTint="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbtn1" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Button
         android:id="@+id/btnEliminar"
         android:layout_width="185dp"
         android:layout_height="45dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="36dp"
         android:text="Eliminar"
         app:backgroundTint="#E40808"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintHorizontal_bias="0.911"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbtn2" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <RadioButton
-        android:id="@+id/rbtn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Pendiente"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etObserv" />
+        app:layout_constraintTop_toBottomOf="@+id/etObserv"
+        android:orientation="horizontal">
 
-    <RadioButton
-        android:id="@+id/rbtn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Realizada"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etObserv" />
+        <RadioButton
+            android:id="@+id/rbtn1"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pendiente" />
+
+        <RadioButton
+            android:id="@+id/rbtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Realizada" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
