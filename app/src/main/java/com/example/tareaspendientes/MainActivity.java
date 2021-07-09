@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
             c.write("Luchito, tarea2, 04-07-2021, 10-07-2021, Observacion2, pendiente\n");
             c.write("Vixcho, tarea3, 04-07-2021, 10-07-2021, Observacion3, lista\n");
             c.write("Vixcho, tarea4, 04-07-2021, 10-07-2021, Observacion4, pendiente");
+            c.close();
         }catch (Exception e){
             Log.e("TAG_", e.toString());
         }

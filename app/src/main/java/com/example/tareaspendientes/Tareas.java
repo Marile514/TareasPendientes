@@ -11,7 +11,7 @@ public class Tareas implements Serializable {
     private String observacion;
     private String estado;
 
-    public Tareas(String user, String titulo, String fecha_inicio, String fecha_fin, String observacion) {
+    public Tareas(String user, String titulo, String fecha_inicio, String fecha_fin, String observacion, String estado) {
         this.user = user;
         this.titulo = titulo;
         this.fecha_inicio = fecha_inicio;
@@ -22,8 +22,7 @@ public class Tareas implements Serializable {
 
     @Override
     public String toString() {
-        return user + ", " + titulo + ", " + fecha_inicio + ", " + fecha_fin + ", " + observacion +
-                ", " + estado;
+        return titulo;
     }
 
     public String getUser() {

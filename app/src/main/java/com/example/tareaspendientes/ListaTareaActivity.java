@@ -20,7 +20,7 @@ public class ListaTareaActivity extends AppCompatActivity {
     private ListView listaTareas;
     private TextView nombre;
     private Button btnAgregar;
-    private RadioButton rbtn1, rbtn2, rbtn3;
+    private RadioButton rbPendiente, rbRealizada, rbTodas;
     private ArrayAdapter tareas;
     private ArrayList<Tareas> tarea = new ArrayList();
     private Usuario usuario;
@@ -39,6 +39,9 @@ public class ListaTareaActivity extends AppCompatActivity {
     private void inits(){
         listaTareas = findViewById(R.id.lstTareaCliente);
         btnAgregar = findViewById(R.id.btnTareaNueva);
+        rbPendiente = findViewById(R.id.rb1);
+        rbRealizada = findViewById(R.id.rb2);
+        rbTodas = findViewById(R.id.rb3);
 
         //tareas = new ArrayAdapter(ListaTareaActivity.this, android.R.layout.simple_list_item_1, tarea);
         listaTareas.setAdapter(tareas);
@@ -70,7 +73,7 @@ public class ListaTareaActivity extends AppCompatActivity {
                 linea = bufferedReader.readLine();
                 if(linea != null){
                     String[] tareaString = linea.split(", ");
-                    tarea.add(new Tareas(tareaString[0], tareaString[1], tareaString[2], tareaString[3], tareaString[4]));
+                    tarea.add(new Tareas(tareaString[0], tareaString[1], tareaString[2], tareaString[3], tareaString[4], tareaString[5]));
                 }
             }while (linea != null);
             reader.close();
@@ -90,6 +93,42 @@ public class ListaTareaActivity extends AppCompatActivity {
         ArrayAdapter listAdp = new ArrayAdapter(ListaTareaActivity.this, android.R.layout.simple_list_item_1, listaTareasUsuario);
         listaTareas.setAdapter(listAdp);
         Log.d("TASK_", "tareasUsuarioLogear: " + listaTareasUsuario);
+        //Implementar método de los radio button.
+        rbRealizada.setOnClickListener(new View.OnClickListener() { //RadioButton de realizadas las tareas.
+            @Override
+            public void onClick(View v) {
+                ArrayList<Tareas> listasRealizadas = new ArrayList<>();
+                for(Tareas t: listaTareasUsuario){
+                    if(t.getEstado().equals("lista")){
+                        listasRealizadas.add(t);
+                    }
+                    ArrayAdapter adpListRelease = new ArrayAdapter(ListaTareaActivity.this, android.R.layout.simple_list_item_1, listasRealizadas);
+                    listaTareas.setAdapter(adpListRelease);
+                }
+            }
+        });
+        //RadioButton de tareas pendientes.
+        rbPendiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Tareas> listasPendientes = new ArrayList<>();
+                for(Tareas t: listaTareasUsuario){
+                    if(t.getEstado().equals("pendiente")){
+                        listasPendientes.add(t);
+                    }
+                    ArrayAdapter adpListPend = new ArrayAdapter(ListaTareaActivity.this, android.R.layout.simple_list_item_1, listasPendientes);
+                    listaTareas.setAdapter(adpListPend);
+                }
+            }
+        });
+        //RadioButton de todas (mostrar todas las tareas de los usuarios ingresados).
+        rbTodas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Tareas> listasTodas = new ArrayList<>();
+
+            }
+        });
     }
 
     private void event(View v){
